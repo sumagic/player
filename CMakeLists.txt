@@ -54,7 +54,7 @@ add_custom_command(TARGET RPC_PROTOBUF
     PRE_BUILD
     COMMENT "start to compile protobuf"
     COMMAND mkdir -p ${3RD_GEN_PATH}
-    COMMAND cd ${3RD_PROTOBUF_SRC_PATH} && bash autogen.sh && ./configure --prefix=${3RD_GEN_PATH} && make -j2 && make DESTDIR=${3RD_GEN_PATH} install
+    COMMAND cd ${3RD_PROTOBUF_SRC_PATH} && bash autogen.sh && ./configure --prefix=${3RD_GEN_PATH} && make -j2 && make install
     COMMAND echo "compile protobuf success"
 )
 
@@ -70,7 +70,7 @@ add_custom_command(TARGET RPC_GRPC
     PRE_BUILD
     COMMENT "start to compile grpc"
     COMMAND mkdir -p ${3RD_GEN_PATH}
-    COMMAND cd ${3RD_GRPC_SRC_PATH} && git submodule update --init --recursive && make -j2 && make install
+    COMMAND cd ${3RD_GRPC_SRC_PATH} && git submodule update --init --recursive && make -j2 && make DESTDIR=${3RD_GEN_PATH} install
     COMMAND echo "compile grpc success"
 )
 
