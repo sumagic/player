@@ -1,0 +1,12 @@
+[submodule "3rd/glog"]
+	path = 3rd/glog
+	url = https://github.com/google/glog.git
+[submodule "3rd/gflags"]
+	path = 3rd/gflags
+	url = https://github.com/gflags/gflags.git
+[submodule "3rd/grpc"]
+	path = 3rd/grpc
+	url = https://github.com/grpc/grpc.git
+[submodule "3rd/protobuf"]
+	path = 3rd/protobuf
+	url = https://github.com/protocolbuffers/protobuf.git
