@@ -2,7 +2,133 @@ syntax = "proto3";
 
 package player;
 
-message player
+// 服务定义，输入要远程执行的命令，返回命令执行的结果
+service Player
 {
-    string name = 1;
+    rpc scp_data(Command) returns (Results) {}
+};
+
+// 远程执行的命令类型
+enum CMDType
+{
+    INIT_ENV = 0;
+    GenNewModel = 1;
+    CAFFE_INFER = 2;
+    TENSORFLOW_INFER = 3;
+    OM_INFER = 4;
+    DATA_PRE_HANDLE = 5;
+};
+
+// 远程环境配置
+message RemoteContext
+{
+    // ip address
+    string ip = 1;
+    // port
+    string port = 2;
+    // 操作路径
+    string path = 3;
+    //环境初始化命令
+    string cmd = 4;
+};
+
+// 模型类型
+enum ModelType
+{
+    CAFFE = 0;
+    TENSORFLOW = 1;
+    PYTORCH = 2;
+    OM = 3;
+};
+
+message Model
+{
+    CaffeModel caffeFile = 1;
+    TensorflowModel tensorflowFile = 2;
+    OmModel omFile = 3;
+    PytorchModel pytorchFile = 4;
+};
+
+// caffe模型文件
+message CaffeModel
+{
+    string prototxt = 1;
+    string caffemodel = 2;
+};
+
+// tensorflow模型文件
+message TensorflowModel
+{
+    string pb = 1;
+    string pbtxt = 2;
 }
+
+// om模型文件
+message OmModel
+{
+    string om = 1;
+};
+
+//pytorch模型文件
+message PytorchModel
+{
+    string pbh = 1;
+};
+
+// 命令：模型转换
+message GenModel
+{
+    // 1.环境初始化
+    RemoteContext env = 1;
+    // 原始模型
+    ModelType originModelType = 2;
+    Model originModelFile = 3;
+    // 转换后的模型
+    ModelType newModelType = 4;
+    Model newModelFile = 5;
+    // 模型转换命令
+    string transCMD = 6;
+};
+
+// 命令： caffe推理
+message CaffeInfer
+{
+    // 初始化环境变量
+    RemoteContext env = 1;
+    // 模型文件
+    Model newModelFile = 2;
+    // 需要获取数据的层的名字
+    repeated string dataBlobName = 3;
+    // 需要获取时间性能的层的名字
+    repeated string tiemBlobName = 4;
+    // 性能为运行inferTime的平均值
+    uint32 inferTime = 5;
+    // 设置输入数据
+    repeated BinData inputData = 6;
+};
+
+
+// 远程执行的命令定义
+message Command
+{
+    // 命令类型
+    CMDType type = 1;
+    // 生成新模型
+    GenModel gen_om = 2;
+    
+
+};
+
+message Results
+{
+    
+};
+
+message BinData
+{
+    string filename = 1;
+    uint32 size = 2;
+    bytes data = 3;
+    Command dataTreat = 4;
+};
+
