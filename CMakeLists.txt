@@ -90,6 +90,10 @@ include_directories(${CMAKE_SOURCE_DIR}/include
     ${GLOG_INCLUDE_DIRS}
 )
 
+add_executable(player
+    ${TOOL_CPP_FILES}
+)
+
 add_executable(layer
     ${TOOL_CPP_FILES}
 )
