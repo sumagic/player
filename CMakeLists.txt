@@ -69,9 +69,9 @@ add_custom_target(RPC_GRPC ALL DEPENDS)
 add_custom_command(TARGET RPC_GRPC
     PRE_BUILD
     COMMENT "start to compile grpc"
-    COMMAND mkdir -p ${3RD_GEN_PATH}
-    COMMAND cd ${3RD_GRPC_SRC_PATH} && git submodule update --init && make -j2 # && make DESTDIR=${3RD_GEN_PATH} install
-    COMMAND cd ${3RD_GRPC_SRC_PATH} && cp -r bins/* ${3RD_GEN_PATH}/bin && cp -r include/* ${3RD_GEN_PATH}/include && cp -r libs/opt/* ${3RD_GEN_PATH}/lib && cp -r doc/* ${3RD_GEN_PATH}/share/doc
+    COMMAND mkdir -p ${3RD_GEN_PATH} ${3RD_GEN_PATH}/bin ${3RD_GEN_PATH}/include ${3RD_GEN_PATH}/lib ${3RD_GEN_PATH}/share/doc/grpc
+    COMMAND cd ${3RD_GRPC_SRC_PATH} && git submodule update --init && make -j2
+    COMMAND cd ${3RD_GRPC_SRC_PATH} && cp -r bins/* ${3RD_GEN_PATH}/bin && cp -r include/* ${3RD_GEN_PATH}/include && cp -r libs/opt/* ${3RD_GEN_PATH}/lib && cp -r doc/* ${3RD_GEN_PATH}/share/doc/grpc
     COMMAND echo "compile grpc success"
 )
 
