@@ -1,3 +1,3 @@
-<h1 align="center">RPC Player</h1>
+<h1 align="center">PLAYER</h1>
 
 # 
