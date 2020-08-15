@@ -75,6 +75,13 @@ add_custom_command(TARGET RPC_GRPC
     COMMAND echo "compile grpc success"
 )
 
+# compile proto
+add_custom_target(COMPILE_PROTO ALL DEPENDS RPC_GRPC RPC_PROTOBUF RPC_GFLAGS RPC_GLOG)
+add_custom_command(TARGET COMPILE_PROTO
+    PRE_BUILD
+    COMMENT "start to execute compile proto file"
+    COMMAND echo "compile proto file success"
+)
 
 file(GLOB_RECURSE TOOL_CPP_FILES "${CMAKE_SOURCE_DIR}/src/tool/*.cc")
 
